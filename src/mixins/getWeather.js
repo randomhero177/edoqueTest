@@ -14,18 +14,19 @@ const url = {
                 this.loading = false;
                 this.$store.commit('weather/toggleRequest');
                 if(data.status === 200) {
-                    const manualData = {};
+                    const sortedData = {};
                     data.data.list.forEach((elem) => {
                         const date = new Date(elem.dt_txt);
 
-                        if (!(date.getDate() in manualData)){
-                            manualData[date.getDate()] = []
+                        if (!(date.getDate() in sortedData)){
+                            sortedData[date.getDate()] = []
                         }
 
-                        manualData[date.getDate()].push(elem)
+                        sortedData[date.getDate()].push(elem)
 
                     })
-                    this.$store.commit('weather/setWeather', manualData);
+
+                    this.$store.commit('weather/setWeather', sortedData);
                     this.$store.commit('weather/setCity', data.data.city);
                 } else {
                     this.$store.commit('weather/setError', data.data);

@@ -6,10 +6,13 @@
 
             <div class="weather-list">
                 <div v-for="(elem, key, index) in weather" :key="index" class="weather-list__item">
-                    <div class="day-title">{{ key }}</div>
+                    <div class="day-title">
+                        {{ new Date(elem[0].dt_txt).getDate() > 10 ? new Date(elem[0].dt_txt).getDate() : '0' + new Date(elem[0].dt_txt).getDate() }}.{{ new Date(elem[0].dt_txt).getMonth() > 10 ? new Date(elem[0].dt_txt).getMonth() : '0' + new Date(elem[0].dt_txt).getMonth() }}
+                    </div>
+
                     <div v-for="item in elem" :key="item.dt" class="weather-list__hourly">
                         <div class="weather-list__hourly-desc">
-                            <strong>{{ new Date(item.dt_txt).getUTCHours() > 10 ? new Date(item.dt_txt).getUTCHours() : '0' + new Date(item.dt_txt).getUTCHours() }}:00 </strong>
+                            <strong>{{ new Date(item.dt_txt).getHours() > 10 ? new Date(item.dt_txt).getHours() : '0' + new Date(item.dt_txt).getHours() }}:00 </strong>
                             {{ parseInt(item.main.temp) }}°
                         </div>
                         <div class="weather-list__hourly-add">
